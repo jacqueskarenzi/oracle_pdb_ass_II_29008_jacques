@@ -2,19 +2,34 @@
 
 ## Student Information
 - **Student ID**: 29008
-- **First Name**: karenzi jacques
+- **First Name**: Jacques
 - **Course**: Database Development with PL/SQL (INSY 8311)
 
 ---
 
+## Assignment Overview
+- Creating and managing Pluggable Databases (PDBs)
+- User creation and administration within PDBs
+- Oracle Enterprise Manager (OEM) configuration
+- Professional technical documentation
+
+---
+
+## Oracle Environment
+- **Oracle Version**: [e.g., Oracle 19c/21c]
+- **Operating System**: [e.g., Windows 10/Linux Ubuntu 22.04]
+- **Container Database (CDB)**: [Your CDB Name]
+- **Oracle Enterprise Manager**: [Version]
+
+---
+
+## Tasks Completed
+
 ### Task 1: Create a New Pluggable Database
 
 **Naming Convention Used**:
-- **PDB Name**: `[FirstTwoLetters]_pdb_[StudentID]`
-  - Example: `er_pdb_2024101`
-- **Username**: `[FirstName]_plsqlauca_[StudentID]`
-  - Example: `jack_plsqlauca_2024101`
-- **Password**: [Your chosen password - do not share publicly]
+- **PDB Name**: `ja_pdb_29008`
+- **Username**: `jacques_plsqlauca_29008`
 
 **Steps Performed**:
 1. Connected to CDB as SYSDBA
@@ -28,8 +43,7 @@
 ### Task 2: Create and Delete a Temporary PDB
 
 **Naming Convention Used**:
-- **Temporary PDB Name**: `[FirstTwoLetters]_to_delete_pdb_[StudentID]`
-  - Example: `er_to_delete_pdb_2024101`
+- **Temporary PDB Name**: `ja_to_delete_pdb_29008`
 
 **Steps Performed**:
 1. Created temporary PDB
@@ -37,7 +51,6 @@
 3. Closed the PDB
 4. Dropped the PDB including datafiles
 5. Confirmed successful deletion
-
 ---
 
 ### Task 3: Oracle Enterprise Manager (OEM)
@@ -51,84 +64,72 @@
 
 ---
 
-## Challenges Encountered and Solutions
-
-### Challenge 1: [If any]
-**Issue**: [Description of problem]
-**Solution**: [How you resolved it]
-
-### Challenge 2: [If any]
-**Issue**: [Description of problem]
-**Solution**: [How you resolved it]
-
----
-
-## Screenshots Directory Structure
-```
-screenshots/
-├── task1_pdb_creation.png
-├── task1_pdb_open.png
-├── task1_user_created.png
-├── task2_pdb_creation.png
-├── task2_pdb_verification.png
-├── task2_pdb_deletion.png
-├── task2_deletion_confirmed.png
-└── task3_oem_dashboard.png
-```
-
----
-
 ## Key SQL Commands Used
 
 ### PDB Creation
 ```sql
 -- Connect as SYSDBA
-CREATE PLUGGABLE DATABASE [pdb_name]
-  ADMIN USER [admin_user] IDENTIFIED BY [password]
-  FILE_NAME_CONVERT = ('[source_path]', '[target_path]');
+CREATE PLUGGABLE DATABASE ja_pdb_29008
+  ADMIN USER pdb_admin IDENTIFIED BY your_password
+  FILE_NAME_CONVERT = ('/pdbseed/', '/ja_pdb_29008/');
 
 -- Open PDB
-ALTER PLUGGABLE DATABASE [pdb_name] OPEN;
+ALTER PLUGGABLE DATABASE ja_pdb_29008 OPEN;
+
+-- Set PDB to auto-start
+ALTER PLUGGABLE DATABASE ja_pdb_29008 SAVE STATE;
 ```
 
 ### User Creation
 ```sql
 -- Connect to PDB
-ALTER SESSION SET CONTAINER = [pdb_name];
+ALTER SESSION SET CONTAINER = ja_pdb_29008;
 
 -- Create user
-CREATE USER [username] IDENTIFIED BY [password];
-GRANT CONNECT, RESOURCE TO [username];
+CREATE USER jacques_plsqlauca_29008 IDENTIFIED BY your_password;
+GRANT CONNECT, RESOURCE TO jacques_plsqlauca_29008;
+GRANT UNLIMITED TABLESPACE TO jacques_plsqlauca_29008;
 ```
 
 ### PDB Deletion
 ```sql
 -- Close PDB
-ALTER PLUGGABLE DATABASE [pdb_name] CLOSE IMMEDIATE;
+ALTER PLUGGABLE DATABASE ja_to_delete_pdb_29008 CLOSE IMMEDIATE;
 
 -- Drop PDB
-DROP PLUGGABLE DATABASE [pdb_name] INCLUDING DATAFILES;
+DROP PLUGGABLE DATABASE ja_to_delete_pdb_29008 INCLUDING DATAFILES;
+```
+
+### Verification Commands
+```sql
+-- Check PDBs
+SELECT pdb_name, status FROM dba_pdbs;
+
+-- Check container name
+SHOW CON_NAME;
+
+-- Verify user creation
+SELECT username FROM dba_users WHERE username = 'JACQUES_PLSQLAUCA_29008';
 ```
 
 ---
-## integrity statement
+
+## Academic Integrity Statement
+
 “All sources were properly cited. Implementations and analysis represent original work. No AI-
-generated content was copied without attribution or adaptation.
+generated content was copied without attribution or adaptation.”
+
+---
 
 ## Submission Information
-- **GitHub Repository**: (https://github.com/jacqueskarenzi/oracle_pdb_ass_II_29008_jacques/tree/main)
-- **Primary PDB Created**: ja_pdb_29008
+- **GitHub Repository**:https://github.com/jacqueskarenzi/oracle_pdb_ass_II_29008_jacques/tree/main
+- **Primary PDB Created**: `ja_pdb_29008`
+- **Temporary PDB Created & Deleted**: `ja_to_delete_pdb_29008`
+
+
 ---
 
 ## References
 - Oracle Database Documentation: Oracle Multitenant Architecture
 - Oracle Enterprise Manager Cloud Control Documentation
 - Course Materials: Database Development with PL/SQL (INSY 8311)
-
-
-*"Excellence is never an accident; it is the result of discipline, commitment, and integrity."*
-
----
-
-**Repository Status**: ✅ PUBLIC  
-**Last Updated**: [Date]
