@@ -5,7 +5,6 @@
 - **First Name**: karenzi jacques
 - **Course**: Database Development with PL/SQL (INSY 8311)
 
-
 ---
 
 ### Task 1: Create a New Pluggable Database
